@@ -20,7 +20,7 @@ USE employee_trackerDB;
 CREATE TABLE role (
 id INT NOT NULL AUTO_INCREMENT,
 title VARCHAR(30) NULL,
-salary  DECIMAL(6,2) NULL,
+salary  DECIMAL(7,2) NULL,
 department_id INT NULL,
   PRIMARY KEY (id)
 );
@@ -34,15 +34,12 @@ CREATE TABLE employee (
    PRIMARY KEY (id)
 );
 
- INSERT INTO department (dept_name)
+INSERT INTO department (dept_name)
 values ("Quality Assurance");
 
--- INSERT INTO products (flavor, price, quantity)
--- VALUES ("chocolate", 3.10, 120);
 
--- INSERT INTO products (flavor, price, quantity)
--- VALUES ("strawberry", 3.25, 75);
+INSERT INTO role (title, salary)
+values ("Analyst", 65000.00);
 
--- ### Alternative way to insert more than one row
--- INSERT INTO products (flavor, price, quantity)
--- VALUES ("vanilla", 2.50, 100), ("chocolate", 3.10, 120), ("strawberry", 3.25, 75);
+
+
