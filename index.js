@@ -55,6 +55,90 @@ async function addDept() {
   start()
 }
 
+async function addRole() {
+  const departments = await db.findAllDepartments()
+
+  const departmentChoices = departments.map(({ id, name }) => ({
+    name: name,
+    value: id
+  }))
+
+  const role = await prompt([
+    {
+      name: 'title',
+      type: 'input',
+      message: 'Enter a title for the new role'
+    },
+    {
+      name: 'salary',
+      type: 'input',
+      messaage: 'Enter a salary for the new role'
+    },
+    {
+      name: 'department_id',
+      type: 'list',
+      message: 'Which department does the role belong to?',
+      choices: departmentChoices
+    }
+  ])
+
+
+  await db.createRole(role);
+  console.log(`Added ${role.title} to the database`);
+  start()
+}
+
+
+async function addEmployee() {
+  const roles = await db.findAllRoles();
+  const employees = await db.findAllEmployees();
+
+
+  const employee = await prompt([
+    {
+      name: 'first_name',
+      type: 'input',
+      message: 'Enter the first name for the new employee'
+    },
+    {
+      name: 'last_name',
+      type: 'input',
+      message: 'Enter the last name for the new employee'
+    }
+  ]);
+
+  const roleChoices = roles.map(({ id, title }) => ({
+    name: title,
+    value: id
+  }));
+
+  const { roleId } = await prompt({
+    name: 'roleId',
+    type: 'list',
+    message: 'What role will this employee have?',
+    choices: roleChoices
+  });
+  employee.role_id = roleId;
+
+  const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+    name: `${first_name} ${last_name}`,
+    value: id
+  }));
+  managerChoices.unshift({ name: 'None', value: null });
+
+  const { managerId } = await prompt({
+    name: 'managerId',
+    type: 'list',
+    message: 'Who is the employees manager?',
+    choices: managerChoices
+  })
+
+  employee.manager_id = managerId;
+
+  await db.createEmployee(employee);
+  console.log(`Added ${employee.first_name} to the database`);
+  start()
+}
 
 
 
