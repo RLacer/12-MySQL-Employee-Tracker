@@ -140,6 +140,26 @@ async function addEmployee() {
   start()
 }
 
+async function viewDept() {
+  const departments = await db.findAllDepartments()
+  console.log('\n');
+  console.table(departments);
+  start();
+};
+
+async function viewRole() {
+  const roles = await db.findAllRoles()
+  console.log('\n');
+  console.table(roles);
+  start();
+};
+
+async function viewEmployee() {
+  const employees = await db.findAllEmployees()
+  console.log('\n');
+  console.table(employees);
+  start();
+};
 
 
 const quit = function () {
