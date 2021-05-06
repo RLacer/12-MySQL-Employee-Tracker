@@ -41,15 +41,27 @@ async function start() {
 
   }
 }
+async function addDept() {
+  console.log('hit');
+  const department = await prompt([
+    {
+      name: 'name',
+      type: 'input',
+      message: 'Enter a department name'
+    }
+  ])
+  await db.createDepartment(department);
+  console.log(`Added ${department.name} to the database`);
+  start()
+}
 
 
 
 
-
-const quit = function() {
+const quit = function () {
   console.log('Good Bye!');
   process.exit();
-  }
+}
 
 
 start()
