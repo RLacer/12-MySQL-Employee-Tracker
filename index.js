@@ -55,51 +55,7 @@ const start = () => {
       }
     })
 }
-const addDept = () => {
-  inquirer
-  .prompt({
-    name: 'dept',
-    type: 'input',
-    message: 'Enter a department name'
-  },
-  )
-  .then(answers => {
-    const dept = new Dept(answers.dept)
-      connection.query('INSERT INTO department (dept_name)',
-      (answers.dept), (err, res) => {
-        if (err) throw err;
-        console.log((err, res) => {
-      
-        start();
-      });
-    });
-});
-};
-// const addRole = () => {
-//   inquirer
-//   .prompt({
-//     name: 'title',
-//     type: 'input',
-//     message: 'Enter a title'
-//   },
-//  {
-//     name: 'salary',
-//     type: 'input',
-//     message: 'Enter a salary for the title'
-//   },
-//   )
-//   .then(answers => {
-//     const dept = new Dept(answers.dept)
-//       connection.query('INSERT INTO role (title, salary)',
-//       (answers.dept), (err, res) => {
-//         if (err) throw err;
-//         console.log((err, res) => {
-      
-//         start();
-//       });
-//     });
-// });
-// };
+
 
 
 
