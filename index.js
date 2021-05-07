@@ -161,11 +161,41 @@ async function viewEmployee() {
   start();
 };
 
+async function updateEmployee() {
+  const employees = await db.findAllEmployees();
+  const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+    name: `${first_name} ${last_name}`,
+    value: id
+  }));
 
+  const { employeeId } = await prompt({
+    name: 'employeeId',
+    type: 'list',
+    message: 'Which employee will be udated?',
+    choices: employeeChoices
+  });
+
+  const roles = await db.findAllRoles()
+
+  const roleChoices = roles.map(({ id, title }) => ({
+    name: title,
+    value: id
+  }));
+
+  const { roleId } = await prompt({
+    name: 'roleId',
+    type: 'list',
+    message: 'What role will this employee have?',
+    choices: roleChoices
+  });
+  await db.updateEmployeeRole(employeeId, roleId);
+  console.log('Updated employees role.')
+  start()
+
+}
 const quit = function () {
   console.log('Good Bye!');
   process.exit();
 }
-
 
 start()
